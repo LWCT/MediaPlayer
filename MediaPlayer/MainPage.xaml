@@ -10,39 +10,50 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <StackPanel Name="MainStackPanel">
-            <!--播放器-->
-            <MediaElement Width="auto" Height="300" Name="MediaPlayer" AutoPlay="False" AreTransportControlsEnabled="True" Source="Assets/b.mp4"/>
-            <Button x:Name="FileButton" Content="click" Click="FileButton_ClickAsy"/>
-            <StackPanel Orientation="Vertical" >
-                <Button Content="play" Name="PlayButton" Click="PlayButton_Click"/>
-                <Button Content="Next" Name="NextButton" Click="NextButton_Click"/>
-                <Button Content="last" Name="LastButton" Click="LastButton_Click"/>
-            </StackPanel>
-           
 
 
-            <!--文件打开-->
-            <TextBlock Name="Title"  Width="auto" Height="100" HorizontalAlignment="Center" Opacity="50"/>
+        <TextBlock Name="Title"  HorizontalAlignment="Center" Width="auto" Height="100" Opacity="0.5" FontSize="100" VerticalAlignment="Top" FocusVisualPrimaryBrush="#FFE1EC00"/>
+
+
+        <SplitView  Name="MainSplitView" IsPaneOpen="False"
+           DisplayMode="CompactInline"
+                        CompactPaneLength="40"
+                         
+           OpenPaneLength="200" >
             <!--文件显示区-->
-            <ListBox Name="FileBlock" Height="126" Tapped="FileBlock_Tapped" DoubleTapped="FileBlock_DoubleTapped" />
-            <!--<SplitView   IsPaneOpen="True"
-           DisplayMode="Inline"
-           OpenPaneLength="200" Height="206">
-                <SplitView.Pane >
-                    <ListBox ItemsSource="{x:Bind mediaFileInfos}"  ItemTemplate="{StaticResource FileBlockTemplate}"/>
-
-
-                </SplitView.Pane>
-
+            <SplitView.Pane >
                 <Grid>
-                    <TextBlock Text="Content"
-                   FontSize="24"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <AppBarButton Icon="List" Width="40" Grid.Column="0" Click="AppBarButton_Click" />
+                    <StackPanel Grid.Column="1" >
+                        <ListBox x:Name="FileBlock" Height="auto" Tapped="FileBlock_Tapped" DoubleTapped="FileBlock_DoubleTapped" />
+
+                    </StackPanel>
+
                 </Grid>
-            </SplitView>-->
-        </StackPanel>
+
+
+            </SplitView.Pane>
+            <!--播放器显示区-->
+            <SplitView.Content>
+                <StackPanel>
+
+                    <MediaElement Width="auto" Height="auto" Name="MediaPlayer" AutoPlay="False" AreTransportControlsEnabled="True" Source="Assets/b.mp4"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <AppBarButton Icon="OpenFile" x:Name="FileButton" Content="click" Click="FileButton_ClickAsy"/>
+                        <AppBarButton Icon="Previous" Content="last" Name="LastButton" Click="LastButton_Click"/>
+                        <AppBarButton Icon="Play" Content="play" Name="PlayButton" Click="PlayButton_Click"/>
+                        <AppBarButton Icon="Next" Content="Next" Name="NextButton" Click="NextButton_Click"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+            </SplitView.Content>
+
+
+        </SplitView>
     </Grid>
 </Page>

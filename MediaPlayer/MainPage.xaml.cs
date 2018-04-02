@@ -51,21 +51,30 @@ namespace MediaPlayer
             {
                 foreach (StorageFile mediaFile in mediaFiles)
                 {
-                    Title.Text += mediaFile.Name;
-                    this.mediaFileInfos.Add(new MediaFileInfo(mediaFile));
-                    FileBlock.Items.Add(mediaFile.Name);
+                   //检测是否已有同路径文件
+                    if(!this.mediaFileInfos.Select(x=>x.mediaFile.Path).ToList().Contains(mediaFile.Path))
+                         this.mediaFileInfos.Add(new MediaFileInfo(mediaFile));
+                   // FileBlock.Items.Add(mediaFile.Name);
                 }
+                Title.Text = "导入" + mediaFiles.Count + "个文件";
+
             }
             else
             {
+
                 Title.Text = "error open!";
             }
-            
+
             //foreach (MediaFileInfo mediaFile in this.mediaFileInfos)
             //{
             //    Title.Text += mediaFile.name;
             //}
+
+            //刷新FileBlock的内容
+            FileBlock.ItemsSource = mediaFileInfos.Select(x=>x.name).ToList();
         }
+
+
 
         //播放当前音频
         public async void PlayMedia()
@@ -81,7 +90,7 @@ namespace MediaPlayer
             Title.Text = mediaFilePlaying.name;
         }
         //播放下一音频
-        public async void NextMediaAsync()
+        public async void NextMedia()
         {
             ++mediaIndex;
             if (mediaIndex>=mediaFileInfos.Count)
@@ -96,7 +105,7 @@ namespace MediaPlayer
             Title.Text = mediaFilePlaying.name;
         }
         //播放上一音频
-        public async void LastMediaAsync()
+        public async void LastMedia()
         {
             --mediaIndex;
             if (mediaIndex < 0)
@@ -131,12 +140,12 @@ namespace MediaPlayer
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            NextMediaAsync();
+            NextMedia();
         }
 
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
-            LastMediaAsync();
+            LastMedia();
         }
 
 
@@ -149,6 +158,14 @@ namespace MediaPlayer
         {
             PlayMedia(FileBlock.SelectedIndex);
         }
+
+        //展开FileBlock
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainSplitView.IsPaneOpen = !MainSplitView.IsPaneOpen;
+        }
+
+
 
         //
     }
