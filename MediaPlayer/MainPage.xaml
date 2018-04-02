@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="MediaPlayer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MediaPlayer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   
+    mc:Ignorable="d">
+
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
+        <StackPanel Name="MainStackPanel">
+            <!--播放器-->
+            <MediaElement Width="auto" Height="300" Name="MediaPlayer" AutoPlay="False" AreTransportControlsEnabled="True" Source="Assets/b.mp4"/>
+            <Button x:Name="FileButton" Content="click" Click="FileButton_ClickAsy"/>
+            <StackPanel Orientation="Vertical" >
+                <Button Content="play" Name="PlayButton" Click="PlayButton_Click"/>
+                <Button Content="Next" Name="NextButton" Click="NextButton_Click"/>
+                <Button Content="last" Name="LastButton" Click="LastButton_Click"/>
+            </StackPanel>
+           
+
+
+            <!--文件打开-->
+            <TextBlock Name="Title"  Width="auto" Height="100" HorizontalAlignment="Center" Opacity="50"/>
+            <!--文件显示区-->
+            <ListBox Name="FileBlock" Height="126" Tapped="FileBlock_Tapped" DoubleTapped="FileBlock_DoubleTapped" />
+            <!--<SplitView   IsPaneOpen="True"
+           DisplayMode="Inline"
+           OpenPaneLength="200" Height="206">
+                <SplitView.Pane >
+                    <ListBox ItemsSource="{x:Bind mediaFileInfos}"  ItemTemplate="{StaticResource FileBlockTemplate}"/>
+
+
+                </SplitView.Pane>
+
+                <Grid>
+                    <TextBlock Text="Content"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+                </Grid>
+            </SplitView>-->
+        </StackPanel>
+    </Grid>
+</Page>
